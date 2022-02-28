@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(5);
+        $posts = Post::all();
 
         return view('admin.posts.index', compact("posts"));
     }
@@ -52,7 +52,7 @@ class PostController extends Controller
 
         $slugCounter = 0;
         while($ifSlugThereIs) {
-            $slug = $slug . $slugCounter;
+            $slug = $slug . '-' . $slugCounter;
             $ifSlugThereIs = Post::where("slug", $slug)->first();
             $slugCounter++;
         }
@@ -62,6 +62,8 @@ class PostController extends Controller
         $newPost->slug = $slug;
 
         $newPost->save();
+
+        return redirect()->route("admin.posts.index");
     }
 
     /**
