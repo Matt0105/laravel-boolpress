@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use App\Model\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -13,7 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::paginate(5);
+
+        return view('admin.posts.index', compact("posts"));
     }
 
     /**
@@ -23,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.posts.create");
     }
 
     /**
@@ -34,7 +38,30 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = $request->validate([
+            "title" => "required|max:255",
+            "content" => "required"
+        ]);
+
+        $newPost = new Post();
+
+        $data = $request->all();
+
+        $slug = Str::slug($data["title"], '-');
+        $ifSlugThereIs = Post::where("slug", $slug)->first();
+
+        $slugCounter = 0;
+        while($ifSlugThereIs) {
+            $slug = $slug . $slugCounter;
+            $ifSlugThereIs = Post::where("slug", $slug)->first();
+            $slugCounter++;
+        }
+
+        $newPost->title = $data["title"];
+        $newPost->content = $data["content"];
+        $newPost->slug = $slug;
+
+        $newPost->save();
     }
 
     /**
