@@ -21,7 +21,7 @@
                     <td>{{$post->title}}</td>
                     <td>{{$post->content}}</td>
                     <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post)}}" style="color: white">View</a></td>
-                    <td><a class="btn btn-success" href="" style="color: white">Edit</a></td>
+                    <td><a class="btn btn-success" href="{{route('admin.posts.edit', $post)}}" style="color: white">Edit</a></td>
                     <td><a class="btn btn-danger" href="" style="color: white">Delete</a></td>
                     </tr>
                     @endforeach
