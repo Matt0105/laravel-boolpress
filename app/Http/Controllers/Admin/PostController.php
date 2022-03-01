@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy("updated_at", "desc")->paginate(10);
 
         return view('admin.posts.index', compact("posts"));
     }
@@ -130,8 +130,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with("status", "Post '$post->title' deleted");
     }
 }
