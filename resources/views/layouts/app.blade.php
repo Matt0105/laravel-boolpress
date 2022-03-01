@@ -72,6 +72,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('admin.posts.index')}}">POST LIST</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin.myPost')}}">MY POST</a>
+                            </li>
                             
                         @endguest
                     </ul>

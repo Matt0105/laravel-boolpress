@@ -138,4 +138,11 @@ class PostController extends Controller
 
         return redirect()->route('admin.posts.index')->with("status", "Post '$post->title' deleted");
     }
+
+    public function filter() {
+
+        $posts = Post::orderBy("updated_at", "desc")->where("user_id", Auth::user()->id)->paginate(10);
+
+        return view('admin.posts.myPosts', compact("posts"));
+    }
 }
