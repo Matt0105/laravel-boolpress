@@ -6,3 +6,7 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+#navbarSupportedContent {
+    justify-content: space-between!important;
+}

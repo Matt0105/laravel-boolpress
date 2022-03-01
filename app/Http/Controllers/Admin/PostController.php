@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -60,6 +61,7 @@ class PostController extends Controller
         $newPost->title = $data["title"];
         $newPost->content = $data["content"];
         $newPost->slug = $slug;
+        $newPost->user_id = Auth::user()->id;
 
         $newPost->save();
 

@@ -26,15 +26,30 @@
                         <td>{{$post->title}}</td>
                         <td>{{$post->content}}</td>
                         <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post)}}" style="color: white">View</a></td>
-                        <td><a class="btn btn-success" href="{{route('admin.posts.edit', $post)}}" style="color: white">Edit</a></td>
-                        <td>
-                            <form action="{{route("admin.posts.destroy", $post)}}" method="POST">
-                            @csrf
-                            @method("DELETE")
+                            
+                        @if ($post->user_id == Auth::user()->id)
+                            <td><a class="btn btn-success" href="{{route('admin.posts.edit', $post)}}" style="color: white">Edit</a></td>
+                            <td>
+                                <form action="{{route("admin.posts.destroy", $post)}}" method="POST">
+                                @csrf
+                                @method("DELETE")
 
-                            <input class="btn btn-danger" type="submit" value="Delete" style="color:white">
-                            </form>
-                        </td>
+                                <input class="btn btn-danger" type="submit" value="Delete" style="color:white">
+                                </form>
+                            </td>
+                        @else
+                            <td><a class="btn btn-secondary" href="" style="color: white">Edit</a></td>
+                            <td>
+                                <form action="" method="POST">
+                                @csrf
+                                @method("POST")
+
+                                <input class="btn btn-secondary" type="submit" value="Delete" style="color:white">
+                                </form>
+                            </td>
+                        @endif
+                        
+
                     </tr>
                     @endforeach
                 

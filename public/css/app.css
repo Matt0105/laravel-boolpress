@@ -12178,3 +12178,7 @@ fieldset:disabled .btn {
   }
 }
 
+#navbarSupportedContent {
+  justify-content: space-between !important;
+}
+
