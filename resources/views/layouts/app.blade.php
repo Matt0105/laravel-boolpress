@@ -21,6 +21,7 @@
 </head>
 <body @auth class="bg-secondary" @endauth>
     <div id="app">
+        {{-- @dd(str_contains(Route::currentRouteName(), 'admin.categories')) --}}
         <nav class="navbar navbar-expand-md @guest navbar-light bg-white @endguest @auth navbar-dark bg-dark @endauth shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -46,10 +47,11 @@
                                 </form>
                             </div>
                         </li>
+                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto d-flex align-items-center">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -66,14 +68,19 @@
                                     {{ Auth::user()->name }}
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('admin.posts.create')}}">ADD POST</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('admin.posts.index')}}">POST LIST</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('admin.posts.myPosts')}}">MY POST</a>
+                            @if(str_contains(Route::currentRouteName(), 'admin.posts'))
+                                <li class="nav-item">
+                                    <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.posts.create')}}" style="color:white">ADD POST</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.posts.index')}}" style="color:white">POST LIST</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.posts.myPosts')}}" style="color:white">MY POST</a>
+                                </li>
+                            @endif
+                            <li>
+                                <a class="btn btn-light rounded-pill" href="{{str_contains(Route::currentRouteName(), 'admin.categories') ? route('admin.posts.index') : route('admin.categories.index')}}" >{{str_contains(Route::currentRouteName(), 'admin.categories') ? "POSTS" : "CATEGORIES"}}</a>
                             </li>
                             
                         @endguest

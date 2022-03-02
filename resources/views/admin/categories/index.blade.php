@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h2 class="mb-3" style="color:white; text-align: center">All Posts</h2>
+            <h2 class="mb-3" style="color:white; text-align: center">All Categories</h2>
             @if (session("status"))
                 <div class="alert alert-danger">
                     {{session("status")}}
@@ -15,21 +15,17 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Content</th>
-                    <th colspan=3 scope="col">Action</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach ($posts as $post)
+                    @foreach ($categories as $category)
                     <tr>
-                        <th scope="row">{{$post->id}}</th>
-                        <td>{{$post->title}}</td>
-                        <td>{{$post->category()->first()->name}}</td>
-                        <td>{{$post->content}}</td>
-                        <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post)}}" style="color: white">View</a></td>
+                        <th scope="row">{{$category->id}}</th>
+                        <td>{{$category->name}}</td>
+                        <td><a class="btn btn-primary" href="{{route('admin.categories.show', $category)}}" style="color: white">View all posts</a></td>
                             
-                        @if ($post->user_id == Auth::user()->id)
+                        {{-- @if ($post->user_id == Auth::user()->id)
                             <td><a class="btn btn-success" href="{{route('admin.posts.edit', $post)}}" style="color: white">Edit</a></td>
                             <td>
                                 <form action="{{route("admin.posts.destroy", $post)}}" method="POST">
@@ -49,7 +45,7 @@
                                 <input class="btn btn-secondary" type="submit" value="Delete" style="color:white">
                                 </form>
                             </td>
-                        @endif
+                        @endif --}}
                         
 
                     </tr>
@@ -58,7 +54,7 @@
                 </tbody>
             </table>
         </div>
-        <div style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center">{{$posts->links()}}</div>
+        {{-- <div style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center">{{$posts->links()}}</div> --}}
     </div>
 </div>
 

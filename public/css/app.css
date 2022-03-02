@@ -12182,3 +12182,8 @@ fieldset:disabled .btn {
   justify-content: space-between !important;
 }
 
+a {
+  opacity: 1;
+  transition: all 0.2s;
+}
+

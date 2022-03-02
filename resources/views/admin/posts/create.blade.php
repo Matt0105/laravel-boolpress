@@ -4,6 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
+                <h2 class="mb-3" style="color:white; text-align: center">Create New Post</h2>
                 <form action="{{route('admin.posts.store')}}" method="POST">
                     @csrf
                     @method("POST")
@@ -41,5 +42,6 @@
                 </form>
             </div>
         </div>
+        <a class="btn btn-dark mt-2" href="{{url()->previous()}}">< Back</a>
     </div>
 @endsection

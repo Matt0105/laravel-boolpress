@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            <h2 class="mb-3" style="color:white; text-align: center">My Posts</h2>
             @if (session("status"))
                 <div class="alert alert-danger">
                     {{session("status")}}
