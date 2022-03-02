@@ -7,6 +7,14 @@
                 <form action="{{route('admin.posts.store')}}" method="POST">
                     @csrf
                     @method("POST")
+
+                    <select class="form-select" name="category_id">
+                        <option value="">Select a Category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>   
+                        @endforeach
+                        
+                      </select>
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}">

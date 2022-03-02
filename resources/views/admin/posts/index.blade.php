@@ -14,16 +14,17 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Content</th>
                     <th colspan=3 scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                     @foreach ($posts as $post)
-                        
                     <tr>
                         <th scope="row">{{$post->id}}</th>
                         <td>{{$post->title}}</td>
+                        <td>{{$post->category_id}}</td>
                         <td>{{$post->content}}</td>
                         <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post)}}" style="color: white">View</a></td>
                             
