@@ -19,7 +19,7 @@
                     <th scope="col">Content</th>
                     <th scope="col">Author</th>
                     <th scope="col">Last Edit</th>
-                    <th colspan="2" scope="col">Action</th>
+                    <th colspan="4" scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,6 +33,22 @@
                         <td>{{$post->user()->first()->name}}</td>
                         <td>{{$post->updated_at}}</td>
                         <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post)}}" style="color: white">View</a></td>
+                        <td>
+                                @if ($post->user_id == Auth::user()->id)
+                                    <a class="btn btn-success" href="{{route('admin.posts.edit', $post)}}" style="color: white">Edit</a>
+                                @endif
+                        </td>
+                        <td>
+                                @if ($post->user_id == Auth::user()->id)
+                                    <form action="{{route("admin.posts.destroy", $post)}}" method="POST">
+                                    @csrf
+                                    @method("DELETE")
+
+                                    <input class="btn btn-danger" type="submit" value="Delete" style="color:white">
+                                    </form>
+                                @endif
+                                
+                        </td>
                             
                         {{-- @if ($post->user_id == Auth::user()->id)
                             <td><a class="btn btn-success" href="{{route('admin.posts.edit', $post)}}" style="color: white">Edit</a></td>
