@@ -7,6 +7,17 @@
                 <form action="{{route('admin.posts.update', $post)}}" method="POST">
                     @csrf
                     @method("PUT")
+                    <select class="form-select" name="category_id">
+                        <option value="">Select a Category</option>
+                        @foreach ($categories as $category)
+                            <option {{$post->category_id == $category->id ? 'selected' : ''}} value="{{$category->id}}">{{$category->name}}</option>   
+                        @endforeach
+                        @error('category_id')
+                            <div class="alert alert-danger">
+                                {{$message}}
+                            </div>
+                        @enderror
+                    </select>
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{$post->title}}">

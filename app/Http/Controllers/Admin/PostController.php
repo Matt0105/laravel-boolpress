@@ -91,7 +91,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view("admin.posts.edit", compact("post"));
+        $categories = Category::all();
+
+        return view("admin.posts.edit", ["post" => $post, "categories" => $categories]);
     }
 
     /**
@@ -103,9 +105,15 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
+        if(Auth::user()->id != $post->user_id) {
+            abort("403");
+        }
+
         $validation = $request->validate([
             "title" => "required|max:255",
-            "content" => "required"
+            "content" => "required",
+            "category_id" => "exists:App\Model\Category,id"
         ]);
 
         $data = $request->all();
@@ -122,6 +130,7 @@ class PostController extends Controller
 
         $post->title = $data["title"];
         $post->content = $data["content"];
+        $post->category_id = $data["category_id"];
         $post->slug = $slug;
 
         $post->save();
@@ -138,6 +147,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if(Auth::user()->id != $post->user_id) {
+            abort("403");
+        }
+        
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with("status", "Post '$post->title' deleted");
