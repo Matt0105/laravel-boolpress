@@ -4,9 +4,10 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Category extends Model
 {
     //
+
         /**
      * Get the route key for the model.
      *
@@ -17,12 +18,7 @@ class Post extends Model
         return 'slug';
     }
 
-    public function user() {
-        return $this->belongsTo("App\User");
+    public function posts() {
+        return $this->hasMany("App\Model\Post");
     }
-
-    public function category() {
-        return $this->belongsTo("App\Model\Category");
-    }
-    
 }

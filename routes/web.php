@@ -28,7 +28,7 @@ Route::middleware('auth') //controllo se sono loggato
     ->group(function () {
         Route::get('/', 'HomeController@index')
             ->name('home');
-        Route::get('/posts/my-posts', 'PostController@filter')
+        Route::get('/my-posts', 'PostController@filter')
         ->name('posts.myPosts');
         
         Route::resource('posts', 'PostController');
