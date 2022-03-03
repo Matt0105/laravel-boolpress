@@ -27,8 +27,13 @@
                             <a class="btn btn-primary" href="{{route('admin.categories.show', $category)}}" style="color: white">View all posts</a>
                         </td>
                         <td>
+                            <form action="{{route('admin.categories.destroy', $category)}}" method="POST">
+                            @csrf
+                            @method("DELETE")
+
+                                <input class="btn btn-danger" type="submit" value="Delete Category" style="color: white">
+                            </form>
                             
-                            <a class="btn btn-danger" href="{{route('admin.categories.destroy', $category)}}" style="color: white">Delete Category</a>
                         </td>
                             
                         {{-- @if ($post->user_id == Auth::user()->id)

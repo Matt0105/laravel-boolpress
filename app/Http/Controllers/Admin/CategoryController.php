@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\Category;
+use App\Model\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -105,8 +106,22 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $posts = Post::where("category_id", $category->id)->get();
+
+        foreach ($posts as $post) {
+            $post->category_id = 1; //category generic
+            $post->save();
+        }
+
+        if($category->name != "Generic") {
+            $category->delete();
+            return redirect()->route("admin.categories.index")->with("status", "Category '$category->name' deleted");
+        }
+        else {
+            return redirect()->route("admin.categories.index")->with("status", "You can't delete 'Generic' Category!");
+        }
+
     }
 }

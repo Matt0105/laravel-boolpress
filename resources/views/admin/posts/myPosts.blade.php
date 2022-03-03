@@ -14,6 +14,7 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Title</th>
                     <th scope="col">Content</th>
                     <th colspan=3 scope="col">Action</th>
@@ -24,6 +25,7 @@
                         
                     <tr>
                         <th scope="row">{{$post->id}}</th>
+                        <td>{{$post->category()->first()->name}}</td>
                         <td>{{$post->title}}</td>
                         <td>{{$post->content}}</td>
                         <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post)}}" style="color: white">View</a></td>
