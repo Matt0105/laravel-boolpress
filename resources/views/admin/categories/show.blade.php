@@ -25,7 +25,7 @@
                 <tbody>
                     @foreach ($category->posts()->get() as $post)
                     {{-- @dd($post->user()) --}}
-                    <tr>
+                    <tr class="table-row">
                         <th scope="row">{{$post->id}}</th>
                         <td>{{$category->name}}</td>
                         <td>{{$post->title}}</td>

@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                     @foreach ($categories as $category)
-                    <tr>
+                    <tr class="table-row">
 
                         <th scope="row">{{$category->id}}</th>
                         <td>{{$category->name}}</td>

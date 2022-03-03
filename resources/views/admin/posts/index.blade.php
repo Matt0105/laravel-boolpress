@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
                     @foreach ($posts as $post)
-                    <tr>
+                    <tr class="table-row">
                         <th scope="row">{{$post->id}}</th>
                         <td>{{$post->title}}</td>
                         <td>{{$post->category()->first()->name}}</td>
