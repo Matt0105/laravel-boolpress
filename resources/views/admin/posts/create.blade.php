@@ -9,7 +9,7 @@
                     @csrf
                     @method("POST")
 
-                    <select class="form-select" name="category_id">
+                    <select class="form-select mb-3" name="category_id">
                         <option value="">Select a Category</option>
                         @foreach ($categories as $category)
                             <option {{old("category_id") == $category->id ? 'selected' : ''}} value="{{$category->id}}">{{$category->name}}</option>   

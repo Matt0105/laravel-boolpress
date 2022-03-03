@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row">
@@ -15,15 +14,22 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Actions</th>
+                    <th colspan=2 scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                     @foreach ($categories as $category)
                     <tr>
+
                         <th scope="row">{{$category->id}}</th>
                         <td>{{$category->name}}</td>
-                        <td><a class="btn btn-primary" href="{{route('admin.categories.show', $category)}}" style="color: white">View all posts</a></td>
+                        <td>
+                            <a class="btn btn-primary" href="{{route('admin.categories.show', $category)}}" style="color: white">View all posts</a>
+                        </td>
+                        <td>
+                            
+                            <a class="btn btn-danger" href="{{route('admin.categories.destroy', $category)}}" style="color: white">Delete Category</a>
+                        </td>
                             
                         {{-- @if ($post->user_id == Auth::user()->id)
                             <td><a class="btn btn-success" href="{{route('admin.posts.edit', $post)}}" style="color: white">Edit</a></td>

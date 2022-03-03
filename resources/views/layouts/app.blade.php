@@ -68,20 +68,31 @@
                                     {{ Auth::user()->name }}
                                 </a>
                             </li>
-                            @if(str_contains(Route::currentRouteName(), 'admin.posts'))
-                                <li class="nav-item">
-                                    <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.posts.create')}}" style="color:white">ADD POST</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.posts.index')}}" style="color:white">POST LIST</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.posts.myPosts')}}" style="color:white">MY POST</a>
-                                </li>
-                            @endif
-                            <li>
-                                <a class="btn btn-light rounded-pill" href="{{str_contains(Route::currentRouteName(), 'admin.categories') ? route('admin.posts.index') : route('admin.categories.index')}}" >{{str_contains(Route::currentRouteName(), 'admin.categories') ? "POSTS" : "CATEGORIES"}}</a>
+                            
+                            @if(Route::currentRouteName() == 'admin.home')  
+                                <a class="btn btn-light rounded-pill me-2" href="{{route('admin.posts.index')}}" >POSTS</a>
+                                <a class="btn btn-light rounded-pill" href="{{route('admin.categories.index')}}" >CATEGORIES</a>
+                            @elseif(str_contains(Route::currentRouteName(), 'admin.categories'))
+                            <li class="nav-item">
+                                <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.categories.create')}}" style="color:white">ADD CATEGORY</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.categories.index')}}" style="color:white">CATEGORY LIST</a>
+                            </li>
+                            <a class="btn btn-light rounded-pill" href="{{route('admin.posts.index')}}" >POSTS</a>
+                            @else
+                            <li class="nav-item">
+                                <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.posts.create')}}" style="color:white">ADD POST</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.posts.index')}}" style="color:white">POST LIST</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link bg-primary p-1 me-2 rounded-top" href="{{route('admin.posts.myPosts')}}" style="color:white">MY POST</a>
+                            </li>
+                                <a class="btn btn-light rounded-pill" href="{{route('admin.categories.index')}}" >CATEGORIES</a>
+                            @endif
+                            
                             
                         @endguest
                     </ul>
