@@ -120,7 +120,7 @@ class CategoryController extends Controller
             return redirect()->route("admin.categories.index")->with("status", "Category '$category->name' deleted");
         }
         else {
-            return redirect()->route("admin.categories.index")->with("status", "You can't delete 'Generic' Category!");
+            return redirect()->route("admin.categories.index")->with("warning", "You can't delete 'Generic' Category!");
         }
 
     }

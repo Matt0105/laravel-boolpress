@@ -8,8 +8,12 @@
                 <div class="alert alert-danger">
                     {{session("status")}}
                 </div>
+            @elseif(session("warning"))
+                <div class="alert alert-warning">
+                    {{session("warning")}}
+                </div>
             @endif
-            <table class="table table-dark table-striped">
+            <table class="table table-dark table-hover">
                 <thead>
                 <tr>
                     <th scope="col">#</th>

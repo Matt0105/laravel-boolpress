@@ -10,7 +10,7 @@
                     {{session("status")}}
                 </div>
             @endif
-            <table class="table table-dark table-striped">
+            <table class="table table-dark table-hover">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
