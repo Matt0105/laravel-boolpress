@@ -17,6 +17,7 @@
                     <th scope="col">Category</th>
                     <th scope="col">Title</th>
                     <th scope="col">Content</th>
+                    <th scope="col">Tags</th>
                     <th scope="col">Author</th>
                     <th scope="col">Last Edit</th>
                     <th colspan="4" scope="col">Action</th>
@@ -29,6 +30,13 @@
                         <th scope="row">{{$post->id}}</th>
                         <td>{{$category->name}}</td>
                         <td>{{$post->title}}</td>
+                        <td>
+                            @foreach ($post->tags()->get() as $tag)
+                                <ul style="list-style-type: none">
+                                    <li style="text-decoration: underline">#{{$tag->name}}</li>
+                                </ul>
+                            @endforeach
+                        </td>
                         <td>{{$post->content}}</td>
                         <td>{{$post->user()->first()->name}}</td>
                         <td>{{$post->updated_at}}</td>

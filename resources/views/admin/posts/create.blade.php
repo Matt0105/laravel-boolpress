@@ -20,6 +20,23 @@
                             </div>
                         @enderror
                     </select>
+
+                    <label for="tags" class="form-label">Tags</label>
+                    @foreach ($tags as $tag)
+                        <div class="form-check">
+                            <input {{in_array($tag->id, old("tags", [])) ? "checked" : ""}} class="form-check-input" type="checkbox" value="{{$tag->id}}" name="tags[]">
+                            <label class="form-check-label" for="flexCheckDefault">
+                            {{$tag->name}}
+                            </label>
+                        </div>
+                    @endforeach
+                    @error('tags.*')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                    @enderror
+                    
+
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}">
