@@ -54,6 +54,7 @@ class PostController extends Controller
         $newPost = new Post();
 
         $data = $request->all();
+        
         $slug = Str::slug($data["title"], '-');
         $ifSlugThereIs = Post::where("slug", $slug)->first();
 
@@ -71,6 +72,15 @@ class PostController extends Controller
         $newPost->user_id = Auth::user()->id;
 
         $newPost->save();
+
+        if(!empty($data["tags"])) {
+
+            $newPost->tags()->sync($data["tags"]);
+        } else {
+            $newPost->tags()->sync([]);
+        }
+
+        // $newPost->tags()->sync()
 
         return redirect()->route("admin.posts.index");
     }
@@ -95,8 +105,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view("admin.posts.edit", ["post" => $post, "categories" => $categories]);
+        return view("admin.posts.edit", ["post" => $post, "categories" => $categories, "tags" => $tags]);
     }
 
     /**
@@ -116,11 +127,11 @@ class PostController extends Controller
         $validation = $request->validate([
             "title" => "required|max:255",
             "content" => "required",
-            "category_id" => "exists:App\Model\Category,id"
+            "category_id" => "exists:App\Model\Category,id",
+            "tags.*" => "exists:App\Model\Tag,id"
         ]);
 
         $data = $request->all();
-
         $slug = Str::slug($data["title"], '-');
         $ifSlugThereIs = Post::where("slug", $slug)->first();
 
@@ -137,6 +148,12 @@ class PostController extends Controller
         $post->slug = $slug;
 
         $post->save();
+
+        if(!empty($data["tags"])) {
+            $post->tags()->sync($data["tags"]);
+        } else {
+            $post->tags()->sync([]);
+        }
 
         return redirect()->route("admin.posts.index", compact("post"));
 
