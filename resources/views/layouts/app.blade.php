@@ -74,7 +74,11 @@
                                 <a class="btn btn-light rounded-end" href="{{route('admin.categories.index')}}" >CATEGORIES</a>
                             @elseif(str_contains(Route::currentRouteName(), 'admin.categories'))
                             <li class="nav-item">
-                                <a class="nav-link bg-primary p-1 me-2 rounded-start" href="{{route('admin.categories.create')}}" style="color:white">ADD CATEGORY</a>
+                                @if(Auth::user()->roles()->get()->contains(1))
+                                    <a class="nav-link bg-primary p-1 me-2 rounded-start" href="{{route('admin.categories.create')}}" style="color:white">ADD CATEGORY</a>
+                                @else
+                                    <a class="nav-link bg-secondary p-1 me-2 rounded-start" href="" style="color:white">ADD CATEGORY</a>
+                                @endif
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link bg-primary p-1 me-2" href="{{route('admin.categories.index')}}" style="color:white">CATEGORY LIST</a>

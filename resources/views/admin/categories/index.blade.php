@@ -31,13 +31,14 @@
                             <a class="btn btn-primary" href="{{route('admin.categories.show', $category)}}" style="color: white">View all posts</a>
                         </td>
                         <td>
-                            <form action="{{route('admin.categories.destroy', $category)}}" method="POST">
-                            @csrf
-                            @method("DELETE")
+                            @if(Auth::user()->roles()->get()->contains(1))
+                                <form action="{{route('admin.categories.destroy', $category)}}" method="POST">
+                                @csrf
+                                @method("DELETE")
 
-                                <input class="btn btn-danger" type="submit" value="Delete Category" style="color: white">
-                            </form>
-                            
+                                    <input class="btn btn-danger" type="submit" value="Delete Category" style="color: white">
+                                </form>
+                            @endif
                         </td>
                             
                         {{-- @if ($post->user_id == Auth::user()->id)
