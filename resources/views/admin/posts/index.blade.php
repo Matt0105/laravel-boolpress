@@ -38,7 +38,7 @@
                         <td>{{$post->content}}</td>
                         <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post)}}" style="color: white">View</a></td>
                             
-                        @if ($post->user_id == Auth::user()->id)
+                        @if ($post->user_id == Auth::user()->id || Auth::user()->roles()->get()->contains(1))
                             <td><a class="btn btn-success" href="{{route('admin.posts.edit', $post)}}" style="color: white">Edit</a></td>
                             <td>
                                 <form action="{{route("admin.posts.destroy", $post)}}" method="POST">

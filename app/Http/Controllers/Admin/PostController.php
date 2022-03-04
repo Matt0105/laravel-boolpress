@@ -167,12 +167,16 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if(Auth::user()->id != $post->user_id) {
+        if(Auth::user()->id != $post->user_id && !Auth::user()->roles()->get()->contains(1)) {
             abort("403");
         }
-        
+        $post->tags()->detach();
         $post->delete();
 
+        //se provengo da my-post al momento della cancellazione rimango nella stessa pagina
+        if(strpos(url()->previous(), "/admin/my-posts")) {
+            return redirect()->route('admin.posts.myPosts')->with("status", "Post '$post->title' deleted");
+        }
         return redirect()->route('admin.posts.index')->with("status", "Post '$post->title' deleted");
     }
 
