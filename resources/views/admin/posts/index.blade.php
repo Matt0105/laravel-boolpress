@@ -13,7 +13,6 @@
             <table class="table table-dark table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Title</th>
                     <th scope="col">Category</th>
                     <th scope="col">Tags</th>
@@ -24,7 +23,6 @@
                 <tbody>
                     @foreach ($posts as $post)
                     <tr class="table-row">
-                        <th scope="row">{{$post->id}}</th>
                         <td>{{$post->title}}</td>
                         <td>{{$post->category()->first()->name}}</td>
                         <td>

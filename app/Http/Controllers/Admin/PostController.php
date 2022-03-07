@@ -136,7 +136,8 @@ class PostController extends Controller
             "title" => "required|max:255",
             "content" => "required",
             "category_id" => "exists:App\Model\Category,id",
-            "tags.*" => "exists:App\Model\Tag,id"
+            "tags.*" => "exists:App\Model\Tag,id",
+            "image" => "nullable|image"
         ]);
 
         $data = $request->all();
@@ -150,10 +151,16 @@ class PostController extends Controller
             $slugCounter++;
         }
 
+        
         $post->title = $data["title"];
         $post->content = $data["content"];
         $post->category_id = $data["category_id"];
         $post->slug = $slug;
+        if(!empty($data["image"])) {
+            $file_path = Storage::put("uploads", $data["image"]);
+            $data["image"] = $file_path;
+            $post->image = $data["image"];
+        }
 
         $post->save();
 
