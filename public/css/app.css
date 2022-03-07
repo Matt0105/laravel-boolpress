@@ -12196,7 +12196,76 @@ a {
   box-shadow: 2px 1px 10px rgba(255, 255, 255, 0.4);
 }
 
-label {
+.show-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.show-container h1,
+.show-container .h1 {
+  text-align: center;
+  font-weight: bold;
+}
+
+.show-container p {
+  text-align: center;
+}
+
+.show-container .author,
+.show-container .tag {
+  align-self: flex-start;
+}
+
+.show-container img {
+  max-width: 50%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.show-container a {
+  align-self: flex-start;
+}
+
+.show-container .tag-badge {
+  background-color: #3490DC !important;
   color: white;
+  border-radius: 20px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+}
+
+.show-container form {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.show-container form .send {
+  color: white;
+}
+
+.show-container form .image-container {
+  text-align: center;
+  padding: 1rem;
+}
+
+.show-container form input,
+.show-container form select,
+.show-container form textarea {
+  transition: all 0.2s;
+}
+
+.show-container form input:hover,
+.show-container form select:hover,
+.show-container form textarea:hover {
+  transform: translateY(-5px);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
 }
 
