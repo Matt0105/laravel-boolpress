@@ -8,6 +8,7 @@ use App\Model\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -48,7 +49,8 @@ class PostController extends Controller
             "title" => "required|max:255",
             "content" => "required",
             "category_id" => "exists:App\Model\Category,id",
-            "tags.*" => "exists:App\Model\Tag,id"
+            "tags.*" => "exists:App\Model\Tag,id",
+            "image" => "nullable|image"
         ]);
 
         $newPost = new Post();
@@ -64,12 +66,18 @@ class PostController extends Controller
             $ifSlugThereIs = Post::where("slug", $slug)->first();
             $slugCounter++;
         }
+        
+        if(!empty($data["image"])) {
+            $file_path = Storage::put("uploads", $data["image"]);
+            $data["image"] = $file_path;
+        }
 
         $newPost->title = $data["title"];
         $newPost->content = $data["content"];
         $newPost->category_id = $data["category_id"];
         $newPost->slug = $slug;
         $newPost->user_id = Auth::user()->id;
+        $newPost->image = $data["image"];
 
         $newPost->save();
 

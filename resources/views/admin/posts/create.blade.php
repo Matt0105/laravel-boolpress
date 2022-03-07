@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col">
                 <h2 class="mb-3" style="color:white; text-align: center">Create New Post</h2>
-                <form action="{{route('admin.posts.store')}}" method="POST">
+                <form action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method("POST")
 
@@ -51,6 +51,15 @@
                         <label for="content" class="form-label">Content</label>
                         <textarea class="form-control" id="content" rows="3" name="content">{{old('content')}}</textarea>
                         @error('content')
+                            <div class="alert alert-danger">
+                                {{$message}}
+                            </div>
+                        @enderror
+                      </div>
+                      <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="image" name="image">
+                        @error('image')
                             <div class="alert alert-danger">
                                 {{$message}}
                             </div>

@@ -6,6 +6,7 @@
         <p><em>Category: {{$post->category()->first()->name}}</em></p>
         <h1>{{$post->title}}</h1>
         <p>{{$post->content}}</p>
+        <img class="img-fluid" src="{{asset("storage/" . $post->image)}}" alt="{{$post->title}}">
         <p><em>Author: {{$post->user()->first()->name}}</em></p>
         <p>
             <em>Tags:</em> 

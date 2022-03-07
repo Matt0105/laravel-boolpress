@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col">
                 <h2 class="mb-3" style="color:white; text-align: center">Edit '{{$post->title}}' Post</h2>
-                <form action="{{route('admin.posts.update', $post)}}" method="POST">
+                <form action="{{route('admin.posts.update', $post)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method("PUT")
                     <select class="form-select mb-3" name="category_id">
@@ -46,24 +46,37 @@
                         @endforeach
                     @endif
 
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{$post->title}}">
-                        @error('title')
-                            <div class="alert alert-danger">
-                                {{$message}}
-                            </div>
-                        @enderror
-                      </div>
-                      <div class="mb-3">
-                        <label for="content" class="form-label">Content</label>
-                        <textarea class="form-control" id="content" rows="3" name="content">{{$post->content}}</textarea>
-                        @error('content')
-                            <div class="alert alert-danger">
-                                {{$message}}
-                            </div>
-                        @enderror
-                      </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{$post->title}}">
+                            @error('title')
+                                <div class="alert alert-danger">
+                                    {{$message}}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Content</label>
+                            <textarea class="form-control" id="content" rows="3" name="content">{{$post->content}}</textarea>
+                            @error('content')
+                                <div class="alert alert-danger">
+                                    {{$message}}
+                                </div>
+                            @enderror
+                        </div>
+                        <div>
+                            <img class="img-fluid" src="{{asset("storage/" . $post->image)}}" alt="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="image" name="image">
+                            @error('image')
+                                <div class="alert alert-danger">
+                                    {{$message}}
+                                </div>
+                            @enderror
+                        </div>
+
                     <input class="btn btn-success" type="submit">
                 </form>
             </div>
