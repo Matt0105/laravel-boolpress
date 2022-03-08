@@ -9,6 +9,9 @@
               <div class="paragraph-container">
                   <p>{{post.content}}</p>
               </div>
+              <div class="tags">
+                  <span class="badge" v-for="tag in tags" :key="tag.id">{{getTags(post)}}</span>
+              </div>
               <span class="author">Author: {{getUser(post.user_id)}}</span>
           </div>
       </div>
@@ -22,7 +25,8 @@ export default {
         return {
             posts: [],
             users: [],
-            categories: []
+            categories: [],
+            tags: [],
         }
     },
     created() {
@@ -32,6 +36,7 @@ export default {
                 this.posts = res.data.resultsPosts.data;
                 this.users = res.data.resultsUsers;
                 this.categories = res.data.resultsCategories;
+                this.tags = res.data.resultsTags;
             })
             .catch(err => {
                 console.log(err);
@@ -58,6 +63,28 @@ export default {
             })
 
             return category;
+        },
+        getTags(post) {
+            let postTags = [];
+
+            // postTags = this.tags.filter(el => {
+            //     if(el.id == post.id) {
+            //         return el.tags;
+            //     }
+            // });
+
+            // return postTags;
+
+            for(let i = 0; i < this.tags.length; i++) {
+                for(let y = 0; y < this.tags[i].posts.length; y++) {
+                    if(this.tags[i].posts[y].id == post.id) {
+                        postTags.push(this.tags[i].name);
+                        y = this.tags[i].posts.length;
+                    }
+                }
+            }
+            return postTags;
+
         }
     }
 }
