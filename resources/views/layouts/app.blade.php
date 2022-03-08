@@ -10,7 +10,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    <script src="{{ asset('js/front.js') }}" defer></script>
+    @yield('script')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,7 +22,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body @auth class="bg-secondary" @endauth>
-    <div id="app">
+    {{-- <div id="app"> --}}
         {{-- @dd(str_contains(Route::currentRouteName(), 'admin.categories')) --}}
         <nav class="navbar navbar-expand-md @guest navbar-light bg-white @endguest @auth navbar-dark bg-dark @endauth shadow-sm">
             <div class="container">
@@ -104,9 +106,11 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+        <div id="app">
+            <main class="py-4">
+                @yield('content')
+            </main>
+        </div>
+    {{-- </div> --}}
 </body>
 </html>
