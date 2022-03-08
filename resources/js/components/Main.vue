@@ -1,8 +1,15 @@
 <template>
   <div>
       <div class="container">
-          <div class="post-card">
-              
+          <div class="post-card" v-for="post in posts" :key="post.id">
+              <div class="head-title">
+                  <h1>{{post.title}}</h1>
+                  <span class="category">Category: {{getCategory(post.category_id)}}</span>
+              </div>
+              <div class="paragraph-container">
+                  <p>{{post.content}}</p>
+              </div>
+              <span class="author">Author: {{getUser(post.user_id)}}</span>
           </div>
       </div>
   </div>
@@ -10,17 +17,87 @@
 
 <script>
 export default {
-    name: "Main"
+    name: "Main",
+    data() {
+        return {
+            posts: [],
+            users: [],
+            categories: []
+        }
+    },
+    created() {
+        axios.get("http://127.0.0.1:8000/api/posts")
+            .then(res => {
+                console.log(res);
+                this.posts = res.data.resultsPosts.data;
+                this.users = res.data.resultsUsers;
+                this.categories = res.data.resultsCategories;
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    },
+    methods: {
+        getUser(postUserId) {
+            let user;
+            this.users.map(el => {
+                if(el.id === postUserId) {
+                    user = el.name;
+                }
+            })
+
+            return user;
+       
+        },
+        getCategory(postCategoryId) {
+            let category;
+            this.categories.map(el => {
+                if(el.id === postCategoryId) {
+                    category = el.name;
+                }
+            })
+
+            return category;
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 
     .post-card {
+        position: relative;
         width: 60%;
         height: 400px;
         border: 1px solid black;
         border-radius: 10px;
-        margin: 0 auto;
+        margin: 1rem auto;
+        overflow: hidden;
+
+        .head-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 80px;
+            background-color: rgb(37, 162, 235);
+            color: white;
+        }
+
+        .paragraph-container {
+            overflow: scroll;
+            p {
+                padding: 1rem;
+                max-height: 250px;
+            }
+        }
+
+        .author {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-style: oblique;
+        }
     }
 </style>
