@@ -10,7 +10,7 @@
                   <p>{{post.content}}</p>
               </div>
               <div class="tags">
-                  <span class="badge" v-for="tag in tags" :key="tag.id">{{getTags(post)}}</span>
+                  <span class="badge" v-for="tag in getTags(post)" :key="tag.id">{{tag}}</span>
               </div>
               <span class="author">Author: {{getUser(post.user_id)}}</span>
           </div>
@@ -125,6 +125,20 @@ export default {
             bottom: 10px;
             right: 10px;
             font-style: oblique;
+        }
+
+        .tags {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+
+            .badge {
+                color: white;
+                padding: 0.4rem 0.7rem;
+                background-color: rgb(37, 162, 235);
+                border-radius: 20px;
+                margin: 0 0.2rem
+            }
         }
     }
 </style>
