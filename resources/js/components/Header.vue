@@ -52,7 +52,7 @@ export default {
         justify-content: space-around;
         width: 100%;
         height: 70px;
-        background-color: rgb(188, 216, 229);
+        background-color: rgba(42, 167, 240, 0.603);
 
         .logo-img {
             height: 60px;
