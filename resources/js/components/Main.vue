@@ -5,6 +5,7 @@
               <div class="preview">
                   <div class="image-container">
                       <img v-if="post.image == null" :src="photoNull" alt="">
+                      <img v-else :src='/storage/+post.image' alt="">
                   </div>
                   <div class="user">
                       <img class="userImg" :src=noUserPhoto alt="">
@@ -28,8 +29,8 @@
               </div>
           </div>
           <div class="changePage-container">
-            <button class="btn prev" @click="changePage(prevPage)">Prev</button>
-            <button class="btn next" @click="changePage(nextPage)">Next</button>
+            <button v-if="prevPage != null" class="btn prev" @click="changePage(prevPage)">Prev</button>
+            <button v-if="nextPage != null" class="btn next" @click="changePage(nextPage)">Next</button>
           </div>
       </div>
   </div>
@@ -103,15 +104,18 @@ export default {
 
         },
         changePage(page) {
-            axios.get(page)
-                .then(res => {
-                    this.posts = res.data.resultsPosts.data;
-                    this.nextPage = res.data.resultsPosts.next_page_url;
-                    this.prevPage = res.data.resultsPosts.prev_page_url;
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            if(page !== null) {
+
+                axios.get(page)
+                    .then(res => {
+                        this.posts = res.data.resultsPosts.data;
+                        this.nextPage = res.data.resultsPosts.next_page_url;
+                        this.prevPage = res.data.resultsPosts.prev_page_url;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
         }
     }
 }
@@ -172,12 +176,11 @@ export default {
             .image-container {
                 width: 100%;
                 height: 300px;
-                background-color: red;
 
                 img {
                     width: 100%;
                     height: 100%;
-                    object-fit: cover;
+                    object-fit: contain;
                 }
             }
 
@@ -224,6 +227,7 @@ export default {
             .paragraph-container {
                 max-height: 180px;
                 overflow: hidden;
+                align-self: flex-start;
             }
 
             label {
