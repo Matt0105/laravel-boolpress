@@ -1,7 +1,6 @@
 <template>
   <div class="main-container" >
       <div class="container">
-          
           <div class="total-card" v-for="post in posts" :key="post.id">
               <div class="preview">
                   <div class="image-container">
@@ -28,6 +27,10 @@
                   </div>
               </div>
           </div>
+          <div class="changePage-container">
+            <button class="btn prev" @click="changePage(prevPage)">Prev</button>
+            <button class="btn next" @click="changePage(nextPage)">Next</button>
+          </div>
       </div>
   </div>
 </template>
@@ -41,6 +44,8 @@ export default {
             users: [],
             categories: [],
             tags: [],
+            nextPage: "",
+            prevPage: "",
             photoNull: require("../../img/no-image-available.jpeg"),
             noUserPhoto: require("../../img/no-photo.jpeg")
         }
@@ -53,6 +58,9 @@ export default {
                 this.users = res.data.resultsUsers;
                 this.categories = res.data.resultsCategories;
                 this.tags = res.data.resultsTags;
+
+                this.nextPage = res.data.resultsPosts.next_page_url;
+                this.prevPage = res.data.resultsPosts.prev_page_url;
             })
             .catch(err => {
                 console.log(err);
@@ -93,6 +101,17 @@ export default {
             }
             return postTags;
 
+        },
+        changePage(page) {
+            axios.get(page)
+                .then(res => {
+                    this.posts = res.data.resultsPosts.data;
+                    this.nextPage = res.data.resultsPosts.next_page_url;
+                    this.prevPage = res.data.resultsPosts.prev_page_url;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
 }
@@ -108,6 +127,17 @@ export default {
 
     .container {
         padding: 1rem;
+    }
+
+    .changePage-container {
+        text-align: center;
+
+        .btn {
+            background-color: rgb(42, 167, 240);
+            border: 1px solid white;
+            color: white;
+            margin: 0.5rem;
+        }
     }
 
     .total-card {
