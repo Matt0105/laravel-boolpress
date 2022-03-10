@@ -5,8 +5,9 @@
             <img class="logo-img" :src="logo" alt="">
         </div>
         <ul class="link-list">
-            <li v-for="link in linkList" :key="link.id"><a :href="link.link">{{link.label}}</a></li>
+            <li v-for="link in linkList" :key="link.id"><router-link :to="{name: link.routeLink}">{{link.label}}</router-link></li>
         </ul>
+        
       </div>
   </nav>
 </template>
@@ -20,23 +21,23 @@ export default {
             linkList: [
                 {
                     id: 1,
-                    label: "Link 1",
-                    link: "#"
+                    label: "Home",
+                    routeLink: "home"
                 },
                 {
                     id: 2,
-                    label: "Link 2",
-                    link: "#"
+                    label: "Posts",
+                    routeLink: "posts"
                 },
                 {
                     id: 3,
-                    label: "Link 3",
-                    link: "#"
+                    label: "About",
+                    routeLink: "about"
                 },
                 {
                     id: 4,
-                    label: "Link 4",
-                    link: "#"
+                    label: "Contacts",
+                    routeLink: "contacts"
                 },
             ]
         }

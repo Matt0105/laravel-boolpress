@@ -1,6 +1,7 @@
 <template>
   <div class="main-container" >
       <div class="container">
+          <h1>{{pageTitle}}</h1>
           <div class="total-card" v-for="post in postInfo.posts" :key="post.id">
               <div class="preview">
                   <div class="image-container">
@@ -39,35 +40,14 @@
 <script>
 export default {
     name: "Main",
-    props: ["postInfo"],
+    props: ["postInfo", "pageTitle"],
     data() {
         return {
-            // posts: [],
-            // users: [],
-            // categories: [],
-            // tags: [],
-            // nextPage: "",
-            // prevPage: "",
             photoNull: require("../../img/no-image-available.jpeg"),
             noUserPhoto: require("../../img/no-photo.jpeg")
         }
     },
     created() {
-        // axios.get("http://127.0.0.1:8000/api/posts")
-        //     .then(res => {
-        //         console.log(res);
-        //         this.posts = res.data.resultsPosts.data;
-        //         this.users = res.data.resultsUsers;
-        //         this.categories = res.data.resultsCategories;
-        //         this.tags = res.data.resultsTags;
-
-        //         this.nextPage = res.data.resultsPosts.next_page_url;
-        //         this.prevPage = res.data.resultsPosts.prev_page_url;
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     })
-        // console.log(this.postInfo);
     },
     methods: {
         getUser(postUserId) {
@@ -129,6 +109,10 @@ export default {
         background-image: url("../../img/bckg.png");
         background-repeat: no-repeat;
         background-size: cover;
+
+        h1 {
+            text-align: center;
+        }
     }
 
     .container {

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <Main :postInfo="postInfo"/>
+      <Main :postInfo="postInfo" :pageTitle="`HomePage`"/>
   </div>
 </template>
 
@@ -29,7 +29,8 @@ export default {
         }
     },
     created() {
-        axios.get("http://127.0.0.1:8000/api/posts")
+        //faccio la chiamata all'api e popolo tutte le info, con anche user, category, tags e pagine prev e next
+        axios.get("http://127.0.0.1:8000/api/posts/random")
             .then(res => {
                 console.log(res);
                 this.postInfo.posts = res.data.resultsPosts.data;
@@ -39,7 +40,7 @@ export default {
 
                 this.postInfo.nextPage = res.data.resultsPosts.next_page_url;
                 this.postInfo.prevPage = res.data.resultsPosts.prev_page_url;
-                console.log(this.postInfo);
+                console.log(this.postInfo.posts);
             })
             .catch(err => {
                 console.log(err);
