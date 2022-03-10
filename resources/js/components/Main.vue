@@ -1,7 +1,7 @@
 <template>
   <div class="main-container" >
       <div class="container">
-          <div class="total-card" v-for="post in posts" :key="post.id">
+          <div class="total-card" v-for="post in postInfo.posts" :key="post.id">
               <div class="preview">
                   <div class="image-container">
                       <img v-if="post.image == null" :src="photoNull" alt="">
@@ -29,8 +29,8 @@
               </div>
           </div>
           <div class="changePage-container">
-            <button v-if="prevPage != null" class="btn prev" @click="changePage(prevPage)">Prev</button>
-            <button v-if="nextPage != null" class="btn next" @click="changePage(nextPage)">Next</button>
+            <button v-if="postInfo.prevPage != null" class="btn prev" @click="changePage(postInfo.prevPage)">Prev</button>
+            <button v-if="postInfo.nextPage != null" class="btn next" @click="changePage(postInfo.nextPage)">Next</button>
           </div>
       </div>
   </div>
@@ -39,38 +39,40 @@
 <script>
 export default {
     name: "Main",
+    props: ["postInfo"],
     data() {
         return {
-            posts: [],
-            users: [],
-            categories: [],
-            tags: [],
-            nextPage: "",
-            prevPage: "",
+            // posts: [],
+            // users: [],
+            // categories: [],
+            // tags: [],
+            // nextPage: "",
+            // prevPage: "",
             photoNull: require("../../img/no-image-available.jpeg"),
             noUserPhoto: require("../../img/no-photo.jpeg")
         }
     },
     created() {
-        axios.get("http://127.0.0.1:8000/api/posts")
-            .then(res => {
-                console.log(res);
-                this.posts = res.data.resultsPosts.data;
-                this.users = res.data.resultsUsers;
-                this.categories = res.data.resultsCategories;
-                this.tags = res.data.resultsTags;
+        // axios.get("http://127.0.0.1:8000/api/posts")
+        //     .then(res => {
+        //         console.log(res);
+        //         this.posts = res.data.resultsPosts.data;
+        //         this.users = res.data.resultsUsers;
+        //         this.categories = res.data.resultsCategories;
+        //         this.tags = res.data.resultsTags;
 
-                this.nextPage = res.data.resultsPosts.next_page_url;
-                this.prevPage = res.data.resultsPosts.prev_page_url;
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        //         this.nextPage = res.data.resultsPosts.next_page_url;
+        //         this.prevPage = res.data.resultsPosts.prev_page_url;
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     })
+        // console.log(this.postInfo);
     },
     methods: {
         getUser(postUserId) {
             let user;
-            this.users.map(el => {
+            this.postInfo.users.map(el => {
                 if(el.id === postUserId) {
                     user = el.name;
                 }
@@ -81,7 +83,7 @@ export default {
         },
         getCategory(postCategoryId) {
             let category;
-            this.categories.map(el => {
+            this.postInfo.categories.map(el => {
                 if(el.id === postCategoryId) {
                     category = el.name;
                 }
@@ -92,11 +94,11 @@ export default {
         getTags(post) {
             let postTags = [];
 
-            for(let i = 0; i < this.tags.length; i++) {
-                for(let y = 0; y < this.tags[i].posts.length; y++) {
-                    if(this.tags[i].posts[y].id == post.id) {
-                        postTags.push(this.tags[i].name);
-                        y = this.tags[i].posts.length;
+            for(let i = 0; i < this.postInfo.tags.length; i++) {
+                for(let y = 0; y < this.postInfo.tags[i].posts.length; y++) {
+                    if(this.postInfo.tags[i].posts[y].id == post.id) {
+                        postTags.push(this.postInfo.tags[i].name);
+                        y = this.postInfo.tags[i].posts.length;
                     }
                 }
             }
@@ -108,9 +110,9 @@ export default {
 
                 axios.get(page)
                     .then(res => {
-                        this.posts = res.data.resultsPosts.data;
-                        this.nextPage = res.data.resultsPosts.next_page_url;
-                        this.prevPage = res.data.resultsPosts.prev_page_url;
+                        this.postInfo.posts = res.data.resultsPosts.data;
+                        this.postInfo.nextPage = res.data.resultsPosts.next_page_url;
+                        this.postInfo.prevPage = res.data.resultsPosts.prev_page_url;
                     })
                     .catch(err => {
                         console.log(err);

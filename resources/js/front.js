@@ -28,8 +28,26 @@ window.Vue = require('vue');
  */
 
 import App from "./views/App";
+import VueRouter from "vue-router";
+import Vue from "vue";
+
+import Home from "./pages/Home";
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+    mode: 'history', //cambia l'uri del browser
+    routes: [
+        {
+            path: "/",
+            name: "home",
+            component: Home
+        }
+    ]
+});
 
 const app = new Vue({
     el: '#app',
     render: h => h(App),
+    router
 });
