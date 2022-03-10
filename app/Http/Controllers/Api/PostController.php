@@ -9,6 +9,8 @@ use App\Model\Category;
 use App\Model\Tag;
 use App\User;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class PostController extends Controller
 {
     public function index() 
@@ -74,9 +76,19 @@ class PostController extends Controller
             $posts->orderBy($data["orderCol"], $data["orderVs"]);
         }
 
+        if(array_key_exists("tags", $data)) {
+            foreach ($data["tags"] as $tag) {
+                $posts->whereHas("tags", function (Builder $query) use ($tag) {
+                    $query->where("name", "=", $tag);
+                });
+            }
+        }
+
         return response()->json([
             "response" => true,
-            "resultsPosts" => $posts->paginate(5),
+            "resultsPosts" => [
+                "data" => $posts->get()
+            ],
             "resultsUsers" => $users,
             "resultsCategories" => $categories,
             "resultsTags" => $tags

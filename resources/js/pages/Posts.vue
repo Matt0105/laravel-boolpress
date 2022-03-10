@@ -2,17 +2,22 @@
   <div>
       <div class="filter-container">
           <form action="">
-            <select name="orderCol" id="orderCol" v-model="orderCol">
+            <select name="orderCol" id="orderCol" v-model="search.orderCol">
                 <option value="title">Title</option>
                 <option value="category">Category</option>
                 <option value="created_at">Creation</option>
                 <option value="updated_at">Update</option>
             </select>
             
-            <select name="orderVs" id="orderVs" v-model="orderVs">
+            <select name="orderVs" id="orderVs" v-model="search.orderVs">
                 <option value="desc">Desc</option>
                 <option value="asc">Asc</option>
             </select>
+
+            <div class="check-container" v-for="(tag, index) in postInfo.tags" :key="tag.name + index">
+                <input type="checkbox" name="tags[]" :value="tag.name" v-model="search.tags">
+                <label :for="tag.name">{{tag.name}}</label>
+            </div>
             <input class="btn btn-success" type="submit" @click.prevent="searchPosts()">
           </form>
       </div>
@@ -31,8 +36,12 @@ export default {
     },
     data() {
         return {
-            orderVs: "asc",
-            orderCol: "updated_at",
+            
+            search: {
+                orderVs: "asc",
+                orderCol: "updated_at",
+                tags: [],
+            },
             postInfo: {
                 
                 posts: [],
@@ -66,7 +75,7 @@ export default {
     },
     methods: {
         searchPosts() {
-            axios.get("http://127.0.0.1:8000/api/posts/search", {params: {orderCol: this.orderCol, orderVs: this.orderVs}})
+            axios.get("http://127.0.0.1:8000/api/posts/search", {params: this.search})
             .then(res => {
                 console.log(res);
                 this.postInfo.posts = res.data.resultsPosts.data;
