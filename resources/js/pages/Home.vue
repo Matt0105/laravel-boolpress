@@ -40,7 +40,7 @@ export default {
 
                 this.postInfo.nextPage = res.data.resultsPosts.next_page_url;
                 this.postInfo.prevPage = res.data.resultsPosts.prev_page_url;
-                console.log(this.postInfo.posts);
+                // console.log(this.postInfo.posts);
             })
             .catch(err => {
                 console.log(err);

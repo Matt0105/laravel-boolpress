@@ -33,6 +33,7 @@ import Vue from "vue";
 
 import Home from "./pages/Home";
 import Posts from "./pages/Posts";
+import Post from "./pages/Post";
 import About from "./pages/About";
 import Contacts from "./pages/Contacts";
 
@@ -50,6 +51,12 @@ const router = new VueRouter({
             path: "/posts",
             name: "posts",
             component: Posts
+        },
+        {
+            path: "/posts/:id",
+            name: "post",
+            props: true,
+            component: Post
         },
         {
             path: "/about",

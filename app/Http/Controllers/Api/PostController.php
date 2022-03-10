@@ -43,4 +43,21 @@ class PostController extends Controller
             "resultsTags" => $tags
         ]);
     }
+
+    public function show($id) {
+        $post = Post::find($id);
+        $users = User::all();
+        $categories = Category::all();
+        $tags = Tag::with("posts")->get();
+
+        return response()->json([
+            "response" => true,
+            "resultsPosts" => [
+                "data" => $post
+            ],
+            "resultsUsers" => $users,
+            "resultsCategories" => $categories,
+            "resultsTags" => $tags
+        ]);
+    }
 }
