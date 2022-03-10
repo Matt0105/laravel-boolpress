@@ -60,4 +60,26 @@ class PostController extends Controller
             "resultsTags" => $tags
         ]);
     }
+
+    public function filter(Request $request) {
+
+        $data = $request->all();
+
+        $posts = Post::where("id", ">=", 1);
+        $users = User::all();
+        $categories = Category::all();
+        $tags = Tag::with("posts")->get();
+
+        if(array_key_exists("orderCol", $data) && array_key_exists("orderVs", $data)) {
+            $posts->orderBy($data["orderCol"], $data["orderVs"]);
+        }
+
+        return response()->json([
+            "response" => true,
+            "resultsPosts" => $posts->paginate(5),
+            "resultsUsers" => $users,
+            "resultsCategories" => $categories,
+            "resultsTags" => $tags
+        ]);
+    }
 }
